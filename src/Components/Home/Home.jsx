@@ -33,49 +33,45 @@ const Home = () => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [genre, setGenre] = useState([]);
 
+  const fetchUpcoming = async () => {
+    const {
+      data: { results },
+    } = await axios.get(`${url}/movie/${upcoming}?api_key=${apiKey}`);
+    setUpcomingMovies(results);
+  };
+  const fetchNowPlaying = async () => {
+    const {
+      data: { results },
+    } = await axios.get(`${url}/movie/${nowPlaying}?api_key=${apiKey}`);
+    setNowPlayingMovies(results);
+  };
+  const fetchPopular = async () => {
+    const {
+      data: { results },
+    } = await axios.get(`${url}/movie/${popular}?api_key=${apiKey}`);
+    setPopularMovies(results);
+  };
+  const fetchTopRated = async () => {
+    const {
+      data: { results },
+    } = await axios.get(`${url}/movie/${topRated}?api_key=${apiKey}`);
+    setTopRatedMovies(results);
+  };
+  const getAllGenre = async () => {
+    const {
+      data: { genres },
+    } = await axios.get(`${url}/genre/movie/list?api_key=${apiKey}`);
+    setGenre(genres);
+    console.log(genres);
+  };
+
   useEffect(() => {
-    const fetchUpcoming = async () => {
-      const {
-        data: { results },
-      } = await axios.get(`${url}/movie/${upcoming}?api_key=${apiKey}`);
-      setUpcomingMovies(results);
-    };
-
-    const fetchNowPlaying = async () => {
-      const {
-        data: { results },
-      } = await axios.get(`${url}/movie/${nowPlaying}?api_key=${apiKey}`);
-      setNowPlayingMovies(results);
-    };
-
-    const fetchPopular = async () => {
-      const {
-        data: { results },
-      } = await axios.get(`${url}/movie/${popular}?api_key=${apiKey}`);
-      setPopularMovies(results);
-    };
-
-    const fetchTopRated = async () => {
-      const {
-        data: { results },
-      } = await axios.get(`${url}/movie/${topRated}?api_key=${apiKey}`);
-      setTopRatedMovies(results);
-    };
-
-    const getAllGenre = async () => {
-      const {
-        data: { genres },
-      } = await axios.get(`${url}/genre/movie/list?api_key=${apiKey}`);
-      setGenre(genres);
-      console.log(genres);
-    };
-
     fetchUpcoming();
     fetchNowPlaying();
     fetchPopular();
     fetchTopRated();
     getAllGenre();
-  },[]);
+  }, []);
 
   return (
     <section className="home">
